@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: frontend
+  namespace: frontend
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: backend-api
+  namespace: backend
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ai-fastapi
+  namespace: backend
