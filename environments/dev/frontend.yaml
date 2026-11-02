@@ -1,0 +1,21 @@
+enabled: false
+nameOverride: frontend
+namespace: frontend
+serviceAccount:
+  name: frontend
+image:
+  repository: ""
+  digest: ""
+  tag: ""
+service:
+  enabled: true
+  port: 3000
+  targetPort: 3000
+containerPort: 3000
+probes:
+  liveness:
+    enabled: false
+    path: /api/health/live
+  readiness:
+    enabled: false
+    path: /api/health/ready

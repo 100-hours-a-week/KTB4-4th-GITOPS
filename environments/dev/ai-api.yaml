@@ -1,0 +1,18 @@
+enabled: false
+nameOverride: ai-api
+namespace: backend
+serviceAccount:
+  name: backend-api
+service:
+  enabled: true
+  port: 8080
+probes:
+  startup:
+    enabled: false
+    path: /livez
+  liveness:
+    enabled: false
+    path: /livez
+  readiness:
+    enabled: false
+    path: /readyz
