@@ -1,0 +1,15 @@
+# AI 팀 Image·Port·Health Endpoint를 확인한 뒤 활성화합니다.
+enabled: false
+nameOverride: ai-fastapi
+namespace: backend
+serviceAccount:
+  name: ai-fastapi
+image:
+  repository: ""
+  digest: ""
+  tag: ""
+service:
+  enabled: true
+  port: 8000
+  targetPort: 8000
+containerPort: 8000

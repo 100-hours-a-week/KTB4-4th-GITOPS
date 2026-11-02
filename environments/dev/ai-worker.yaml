@@ -1,0 +1,10 @@
+# Stream 소비 기능이 구현된 뒤 활성화합니다.
+enabled: false
+nameOverride: ai-worker
+namespace: backend
+serviceAccount:
+  name: backend-api
+service:
+  enabled: false
+autoscaling:
+  enabled: false

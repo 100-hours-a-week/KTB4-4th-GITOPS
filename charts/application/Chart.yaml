@@ -1,0 +1,6 @@
+apiVersion: v2
+name: needu-application
+description: Need U V3 application workload chart
+type: application
+version: 0.1.0
+appVersion: "v3"

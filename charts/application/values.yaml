@@ -1,0 +1,45 @@
+enabled: false
+
+nameOverride: ""
+namespace: ""
+
+image:
+  repository: ""
+  digest: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+serviceAccount:
+  create: false
+  name: ""
+
+service:
+  enabled: true
+  port: 8080
+  targetPort: 8080
+
+containerPort: 8080
+resources: {}
+probes:
+  startup:
+    enabled: false
+    path: /livez
+  liveness:
+    enabled: false
+    path: /livez
+  readiness:
+    enabled: false
+    path: /readyz
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 60
+
+env: []
+nodeSelector: {}
+tolerations: []
+topologySpreadConstraints: []
