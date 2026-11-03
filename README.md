@@ -143,11 +143,10 @@ Production 배포는 승인된 Git 변경으로만 진행합니다. CI는 Produc
 charts/application/       공통 Workload Helm Chart
 environments/dev/         Dev Workload Values
 platform/namespaces/      Namespace 정의
-platform/rbac/            Kubernetes 권한 설계
 platform/serviceaccounts/ ServiceAccount 권한 설계
 ```
 
-현재 브랜치는 Dev 배포 설정의 초안입니다. `ai-worker`의 Stream 소비 기능과 AI FastAPI 연결, 실제 Image Digest·Secret 이름은 담당 팀의 구현과 AWS 인프라 준비에 맞춰 채웁니다. `platform/` 리소스가 먼저 적용된 뒤 Workload를 배포합니다.
+Dev Workload Values는 배포 전 초안이며, Image Digest·Secret·Probe·자원 요청량을 확인한 뒤 활성화합니다. Dev Namespace의 자원 정책은 `platform/namespaces/dev/`에 둡니다. Namespace와 자원 정책을 Workload보다 먼저 동기화합니다. RBAC 주체와 권한은 인증 방식이 정해진 뒤 구성합니다.
 
 ## 로컬 검증
 
@@ -157,7 +156,7 @@ helm template frontend charts/application -f environments/dev/frontend.yaml > /d
 helm template auth-api charts/application -f environments/dev/backend-image.yaml -f environments/dev/auth-api.yaml > /dev/null
 ```
 
-공통 Chart를 변경하면 Dev와 Production Values를 모두 렌더링해 영향을 확인합니다. Secret 원문은 Git·Helm Values에 넣지 않습니다.
+Backend API는 공통 Image를 사용하므로 `backend-image.yaml`을 먼저, 서비스별 Values를 뒤에 전달합니다. 공통 Chart를 변경하면 Dev와 Production Values를 모두 렌더링해 영향을 확인합니다. Secret 원문은 Git·Helm Values에 넣지 않습니다.
 
 ## 협업 규칙
 

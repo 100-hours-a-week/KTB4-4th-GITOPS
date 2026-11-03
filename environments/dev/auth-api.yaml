@@ -1,6 +1,8 @@
 enabled: false
 nameOverride: auth-api
 namespace: backend
+nodeSelector:
+  pool: application
 serviceAccount:
   name: backend-api
 service:

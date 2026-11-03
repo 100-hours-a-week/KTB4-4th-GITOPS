@@ -1,6 +1,8 @@
 enabled: false
 nameOverride: social-api
 namespace: backend
+nodeSelector:
+  pool: application
 serviceAccount:
   name: backend-api
 service:
