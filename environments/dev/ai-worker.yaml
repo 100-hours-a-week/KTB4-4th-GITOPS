@@ -2,6 +2,8 @@
 enabled: false
 nameOverride: ai-worker
 namespace: backend
+nodeSelector:
+  pool: application
 serviceAccount:
   name: backend-api
 service:

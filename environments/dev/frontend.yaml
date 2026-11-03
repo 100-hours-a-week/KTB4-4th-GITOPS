@@ -1,6 +1,8 @@
 enabled: false
 nameOverride: frontend
 namespace: frontend
+nodeSelector:
+  pool: application
 serviceAccount:
   name: frontend
 image:
