@@ -12,6 +12,8 @@ image:
 env:
   - name: NODE_ENV
     value: production
+  - name: BACKEND_API_BASE_URL
+    value: https://v3.dev.needu.gift/api
 envFrom:
   - secretRef:
       name: frontend-runtime

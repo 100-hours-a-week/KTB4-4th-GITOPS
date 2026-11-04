@@ -8,6 +8,8 @@ serviceAccount:
 envFrom:
   - secretRef:
       name: backend-runtime
+  - secretRef:
+      name: backend-db
 service:
   enabled: true
   port: 8080

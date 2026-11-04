@@ -4,3 +4,18 @@ image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
   digest: ""
   tag: "9dd8711bb29b80a98eef3ebde3df15ae7d9924f7"
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: dev
+  - name: SPRING_DATASOURCE_URL
+    value: jdbc:mysql://needu-dev-mysql.chmgo2a26a97.ap-northeast-2.rds.amazonaws.com:3306/needu
+  - name: DB_USERNAME
+    value: needu
+  - name: SPRING_DATA_REDIS_HOST
+    value: master.needu-dev-redis.s4gucc.apn2.cache.amazonaws.com
+  - name: SPRING_DATA_REDIS_PORT
+    value: "6379"
+  - name: SPRING_DATA_REDIS_SSL_ENABLED
+    value: "true"
+  - name: AI_SERVER_BASE_URL
+    value: http://ai-fastapi.backend.svc.cluster.local:8000
