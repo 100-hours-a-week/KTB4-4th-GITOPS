@@ -1,0 +1,12 @@
+global:
+  nodeSelector:
+    pool: system
+  tolerations:
+    - key: dedicated
+      operator: Equal
+      value: system
+      effect: NoSchedule
+
+server:
+  service:
+    type: ClusterIP
