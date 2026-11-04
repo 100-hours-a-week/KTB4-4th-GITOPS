@@ -1,6 +1,6 @@
 # 네 Backend API와 향후 AI Worker가 공유할 Image입니다.
 # 실제 ECR Repository와 Digest는 CI 연동 후 채웁니다.
 image:
-  repository: ""
+  repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
   digest: ""
-  tag: ""
+  tag: "9dd8711bb29b80a98eef3ebde3df15ae7d9924f7"

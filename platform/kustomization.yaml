@@ -4,3 +4,6 @@ resources:
   - namespaces/applications.yaml
   - namespaces/dev/resources.yaml
   - serviceaccounts/applications.yaml
+  - external-secrets/application.yaml
+  - external-secrets/sync-application.yaml
+  - external-secrets/namespace.yaml

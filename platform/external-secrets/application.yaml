@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-dev-external-secrets
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+  source:
+    repoURL: https://charts.external-secrets.io
+    chart: external-secrets
+    targetRevision: 0.20.2
+    helm:
+      releaseName: external-secrets
+      values: |
+        installCRDs: true
+        serviceAccount:
+          create: true
+          name: external-secrets
+        nodeSelector:
+          pool: system
+        tolerations:
+          - key: dedicated
+            operator: Equal
+            value: system
+            effect: NoSchedule
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: external-secrets
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
