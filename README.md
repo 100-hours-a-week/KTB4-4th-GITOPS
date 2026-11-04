@@ -146,7 +146,7 @@ platform/namespaces/      Namespace 정의
 platform/serviceaccounts/ ServiceAccount 권한 설계
 ```
 
-Dev Workload Values는 배포 전 초안이며, Image Digest·Secret·Probe·자원 요청량을 확인한 뒤 활성화합니다. Dev Namespace의 자원 정책은 `platform/namespaces/dev/`에 둡니다. Namespace와 자원 정책을 Workload보다 먼저 동기화합니다. RBAC 주체와 권한은 인증 방식이 정해진 뒤 구성합니다.
+Dev Workload는 `enabled: true`로 렌더링되지만 Argo CD Application의 자동 동기화는 꺼져 있습니다. 이미지·Secret·자원 요청량을 확인한 뒤 AI FastAPI → Backend API → Frontend 순서로 수동 Sync합니다. ALB·Ingress·HTTPS 설정은 별도 담당 작업에서 연결합니다. Dev Namespace의 자원 정책은 `platform/namespaces/dev/`에 둡니다.
 
 ## 로컬 검증
 
