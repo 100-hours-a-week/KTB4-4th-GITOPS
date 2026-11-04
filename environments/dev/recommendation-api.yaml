@@ -1,4 +1,4 @@
-enabled: false
+enabled: true
 nameOverride: recommendation-api
 namespace: backend
 nodeSelector:

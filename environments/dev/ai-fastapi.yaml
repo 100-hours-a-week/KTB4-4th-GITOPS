@@ -1,5 +1,4 @@
-# AI 팀 Image·Port·Health Endpoint를 확인한 뒤 활성화합니다.
-enabled: false
+enabled: true
 nameOverride: ai-fastapi
 namespace: backend
 nodeSelector:
