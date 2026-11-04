@@ -7,9 +7,12 @@ nodeSelector:
 serviceAccount:
   name: ai-fastapi
 image:
-  repository: ""
+  repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/ai"
   digest: ""
-  tag: ""
+  tag: "b60fb08c350c8076aa546f710566da5d631f89f5"
+env:
+  - name: APP_ENV
+    value: development
 service:
   enabled: true
   port: 8000

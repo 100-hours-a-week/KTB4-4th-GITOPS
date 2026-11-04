@@ -6,9 +6,12 @@ nodeSelector:
 serviceAccount:
   name: frontend
 image:
-  repository: ""
+  repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/frontend"
   digest: ""
-  tag: ""
+  tag: "9d4001cb8698203eb781bf493d6eca8c7008d722"
+env:
+  - name: NODE_ENV
+    value: production
 service:
   enabled: true
   port: 3000
