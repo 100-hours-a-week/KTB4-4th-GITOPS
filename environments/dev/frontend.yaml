@@ -12,6 +12,9 @@ image:
 env:
   - name: NODE_ENV
     value: production
+envFrom:
+  - secretRef:
+      name: frontend-runtime
 service:
   enabled: true
   port: 3000
