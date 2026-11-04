@@ -1,0 +1,26 @@
+clusterName: needu-v3-dev
+region: ap-northeast-2
+vpcId: vpc-0f2478c01e376b1b6
+
+replicaCount: 2
+
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+
+nodeSelector:
+  pool: system
+
+tolerations:
+  - key: dedicated
+    operator: Equal
+    value: system
+    effect: NoSchedule
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
