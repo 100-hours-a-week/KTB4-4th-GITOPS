@@ -7,3 +7,5 @@ resources:
   - backend-secret.yaml
   - ai-secret.yaml
   - backend-store.yaml
+  - backend-rds-store.yaml
+  - backend-db-secret.yaml
