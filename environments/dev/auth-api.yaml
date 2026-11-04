@@ -1,4 +1,4 @@
-enabled: false
+enabled: true
 nameOverride: auth-api
 namespace: backend
 nodeSelector:
