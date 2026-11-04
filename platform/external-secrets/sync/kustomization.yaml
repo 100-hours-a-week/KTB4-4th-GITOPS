@@ -3,3 +3,7 @@ kind: Kustomization
 resources:
   - secret-store.yaml
   - external-secret-test.yaml
+  - frontend-secret.yaml
+  - backend-secret.yaml
+  - ai-secret.yaml
+  - backend-store.yaml

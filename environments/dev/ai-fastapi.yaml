@@ -13,6 +13,9 @@ image:
 env:
   - name: APP_ENV
     value: development
+envFrom:
+  - secretRef:
+      name: ai-runtime
 service:
   enabled: true
   port: 8000
