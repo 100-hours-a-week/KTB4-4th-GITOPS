@@ -10,6 +10,7 @@ image:
   pullPolicy: IfNotPresent
 
 replicaCount: 1
+deploymentAnnotations: {}
 
 serviceAccount:
   create: false

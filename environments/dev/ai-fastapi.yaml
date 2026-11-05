@@ -3,6 +3,8 @@ nameOverride: ai-fastapi
 namespace: backend
 nodeSelector:
   pool: application
+deploymentAnnotations:
+  secret.reloader.stakater.com/auto: "true"
 serviceAccount:
   name: ai-fastapi
 image:

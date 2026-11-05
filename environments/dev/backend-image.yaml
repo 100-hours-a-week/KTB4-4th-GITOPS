@@ -4,6 +4,8 @@ image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
   digest: ""
   tag: "9dd8711bb29b80a98eef3ebde3df15ae7d9924f7"
+deploymentAnnotations:
+  secret.reloader.stakater.com/auto: "true"
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: dev
