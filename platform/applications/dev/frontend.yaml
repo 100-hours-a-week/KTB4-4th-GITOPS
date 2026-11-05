@@ -19,6 +19,13 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: frontend
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: frontend
+      jsonPointers:
+        - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from
   syncPolicy:
     syncOptions:
       - CreateNamespace=false
+      - RespectIgnoreDifferences=true
