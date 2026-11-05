@@ -1,0 +1,39 @@
+name: Validate GitOps configuration
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/validate-gitops.yml"
+      - "argocd/**"
+      - "charts/**"
+      - "environments/**"
+      - "kubernetes/**"
+      - "platform/**"
+      - "scripts/validate-gitops.sh"
+      - "scripts/check-gitops-files.rb"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4.3.1
+        with:
+          version: v3.18.4
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4.0.1
+        with:
+          version: v1.33.13
+
+      - name: Validate GitOps files
+        run: bash scripts/validate-gitops.sh
