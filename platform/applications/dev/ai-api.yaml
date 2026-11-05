@@ -20,6 +20,13 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: backend
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: ai-api
+      jsonPointers:
+        - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from
   syncPolicy:
     syncOptions:
       - CreateNamespace=false
+      - RespectIgnoreDifferences=true

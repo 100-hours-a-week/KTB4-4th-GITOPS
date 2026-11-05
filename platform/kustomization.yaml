@@ -7,6 +7,8 @@ resources:
   - external-secrets/application.yaml
   - external-secrets/sync-application.yaml
   - external-secrets/namespace.yaml
+  - reloader/namespace.yaml
+  - reloader/application.yaml
   - applications/dev/frontend.yaml
   - applications/dev/ai-fastapi.yaml
   - applications/dev/auth-api.yaml

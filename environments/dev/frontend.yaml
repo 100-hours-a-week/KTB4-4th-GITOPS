@@ -3,6 +3,8 @@ nameOverride: frontend
 namespace: frontend
 nodeSelector:
   pool: application
+deploymentAnnotations:
+  secret.reloader.stakater.com/auto: "true"
 serviceAccount:
   name: frontend
 image:
