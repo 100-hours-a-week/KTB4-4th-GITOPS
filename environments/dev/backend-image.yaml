@@ -3,7 +3,7 @@
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
   digest: ""
-  tag: "9dd8711bb29b80a98eef3ebde3df15ae7d9924f7"
+  tag: "v2-586ae498b4c907831d1f4ecb803fd06296d7ca89"
 
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
