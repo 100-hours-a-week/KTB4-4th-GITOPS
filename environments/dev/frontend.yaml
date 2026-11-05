@@ -16,6 +16,12 @@ env:
     value: production
   - name: BACKEND_API_BASE_URL
     value: https://v3.dev.needu.gift/api
+  - name: BACKEND_AUTH_API_BASE_URL
+    value: "http://auth-api.backend.svc.cluster.local:8080/"
+  - name: BACKEND_RECOMMENDATION_API_BASE_URL
+    value: "http://recommendation-api.backend.svc.cluster.local:8080/"
+  - name: BACKEND_SOCIAL_API_BASE_URL
+    value: "http://social-api.backend.svc.cluster.local:8080/"
 envFrom:
   - secretRef:
       name: frontend-runtime
