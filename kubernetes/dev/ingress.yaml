@@ -4,7 +4,7 @@ metadata:
   name: needu-dev-ingress
   namespace: frontend
   annotations:
-    alb.ingress.kubernetes.io/load-balancer-name: needu-v3-dev-alb
+    alb.ingress.kubernetes.io/load-balancer-name: needu-v3-dev-routing
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/subnets: subnet-09862cdd62336beb2,subnet-0b86dc8e5871c497c
@@ -12,6 +12,8 @@ metadata:
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:919551759796:certificate/62c0f58c-b95e-4768-ac3b-12ec3f4c7410
     alb.ingress.kubernetes.io/healthcheck-path: /login
+    alb.ingress.kubernetes.io/group.name: needu-v3-dev
+    alb.ingress.kubernetes.io/group.order: "100"
 spec:
   ingressClassName: alb
   rules:
