@@ -6,6 +6,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/group.name: needu-v3-dev
     alb.ingress.kubernetes.io/group.order: "1"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
     alb.ingress.kubernetes.io/success-codes: "200"
