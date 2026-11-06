@@ -14,7 +14,7 @@ serviceAccount:
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/ai"
   digest: ""
-  tag: "b60fb08c350c8076aa546f710566da5d631f89f5"
+  tag: "v2-c059e0c26a050baab05bdbee5ea7b3bb57b5fdcf"
 
 env:
   - name: APP_ENV
