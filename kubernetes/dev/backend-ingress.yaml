@@ -100,6 +100,14 @@ spec:
                   number: 8080
 
           # Social API
+          - path: /ws
+            pathType: Prefix
+            backend:
+              service:
+                name: social-api
+                port:
+                  number: 8080
+
           - path: /api/v1/friends
             pathType: Prefix
             backend:
