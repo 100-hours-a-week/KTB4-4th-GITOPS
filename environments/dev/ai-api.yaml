@@ -4,12 +4,14 @@ namespace: backend
 nodeSelector:
   pool: application
 serviceAccount:
-  name: backend-api
+  name: ai-api
 envFrom:
   - secretRef:
       name: backend-runtime
   - secretRef:
       name: backend-db
+  - secretRef:
+      name: ai-api-runtime
 service:
   enabled: true
   port: 8080

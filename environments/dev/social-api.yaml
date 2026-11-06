@@ -4,12 +4,14 @@ namespace: backend
 nodeSelector:
   pool: application
 serviceAccount:
-  name: backend-api
+  name: social-api
 envFrom:
   - secretRef:
       name: backend-runtime
   - secretRef:
       name: backend-db
+  - secretRef:
+      name: social-runtime
 service:
   enabled: true
   port: 8080

@@ -5,7 +5,8 @@ namespace: backend
 nodeSelector:
   pool: application
 serviceAccount:
-  name: backend-api
+  # Worker 활성화 시 동일한 이름의 ServiceAccount를 함께 생성합니다.
+  name: ai-worker
 service:
   enabled: false
 autoscaling:
