@@ -34,3 +34,14 @@ service:
   targetPort: 8000
 
 containerPort: 8000
+
+probes:
+  startup:
+    enabled: true
+    path: /health
+  liveness:
+    enabled: true
+    path: /health
+  readiness:
+    enabled: true
+    path: /health

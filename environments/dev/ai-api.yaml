@@ -15,11 +15,11 @@ service:
   port: 8080
 probes:
   startup:
-    enabled: false
+    enabled: true
     path: /livez
   liveness:
-    enabled: false
+    enabled: true
     path: /livez
   readiness:
-    enabled: false
+    enabled: true
     path: /readyz

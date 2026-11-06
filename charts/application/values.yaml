@@ -27,12 +27,21 @@ probes:
   startup:
     enabled: false
     path: /livez
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 30
   liveness:
     enabled: false
     path: /livez
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
   readiness:
     enabled: false
     path: /readyz
+    periodSeconds: 5
+    timeoutSeconds: 2
+    failureThreshold: 3
 
 autoscaling:
   enabled: false

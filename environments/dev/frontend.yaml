@@ -32,8 +32,8 @@ service:
 containerPort: 3000
 probes:
   liveness:
-    enabled: false
+    enabled: true
     path: /api/health/live
   readiness:
-    enabled: false
+    enabled: true
     path: /api/health/ready
