@@ -7,8 +7,30 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: backend-api
+  name: auth-api
   namespace: backend
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: recommendation-api
+  namespace: backend
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: social-api
+  namespace: backend
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ai-api
+  namespace: backend
+automountServiceAccountToken: false
 ---
 apiVersion: v1
 kind: ServiceAccount

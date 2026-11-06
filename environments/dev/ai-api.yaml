@@ -4,7 +4,7 @@ namespace: backend
 nodeSelector:
   pool: application
 serviceAccount:
-  name: backend-api
+  name: ai-api
 envFrom:
   - secretRef:
       name: backend-runtime
