@@ -28,5 +28,12 @@ env:
   - name: SPRING_DATA_REDIS_SSL_ENABLED
     value: "true"
 
+  # Redis Timeout
+  - name: SPRING_DATA_REDIS_CONNECT_TIMEOUT
+    value: "10s"
+
+  - name: SPRING_DATA_REDIS_TIMEOUT
+    value: "10s"
+
   - name: AI_SERVER_BASE_URL
     value: http://ai-fastapi.backend.svc.cluster.local:8000
