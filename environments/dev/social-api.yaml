@@ -10,6 +10,8 @@ envFrom:
       name: backend-runtime
   - secretRef:
       name: backend-db
+  - secretRef:
+      name: social-runtime
 service:
   enabled: true
   port: 8080
