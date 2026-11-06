@@ -10,6 +10,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
     alb.ingress.kubernetes.io/success-codes: "200"
+
 spec:
   ingressClassName: alb
   rules:
@@ -33,15 +34,15 @@ spec:
                 port:
                   number: 8080
 
-          - path: /api/v1/users/me
-            pathType: Exact
+          - path: /api/v1/error-reports
+            pathType: Prefix
             backend:
               service:
                 name: auth-api
                 port:
                   number: 8080
 
-          - path: /api/v1/users/me/consents
+          - path: /api/v1/users
             pathType: Prefix
             backend:
               service:
@@ -51,6 +52,22 @@ spec:
 
           # Recommendation API
           - path: /api/v1/products
+            pathType: Prefix
+            backend:
+              service:
+                name: recommendation-api
+                port:
+                  number: 8080
+
+          - path: /api/v1/purchase-checks
+            pathType: Prefix
+            backend:
+              service:
+                name: recommendation-api
+                port:
+                  number: 8080
+
+          - path: /api/v1/analytics
             pathType: Prefix
             backend:
               service:
@@ -74,8 +91,48 @@ spec:
                 port:
                   number: 8080
 
+          - path: /api/v1/users/me/gift-recommendations
+            pathType: Prefix
+            backend:
+              service:
+                name: recommendation-api
+                port:
+                  number: 8080
+
           # Social API
           - path: /api/v1/friends
+            pathType: Prefix
+            backend:
+              service:
+                name: social-api
+                port:
+                  number: 8080
+
+          - path: /api/v1/anonymous-chats
+            pathType: Prefix
+            backend:
+              service:
+                name: social-api
+                port:
+                  number: 8080
+
+          - path: /api/v1/calendar
+            pathType: Prefix
+            backend:
+              service:
+                name: social-api
+                port:
+                  number: 8080
+
+          - path: /api/v1/notifications
+            pathType: Prefix
+            backend:
+              service:
+                name: social-api
+                port:
+                  number: 8080
+
+          - path: /api/v1/users/me/push-subscriptions
             pathType: Prefix
             backend:
               service:
@@ -88,5 +145,14 @@ spec:
             backend:
               service:
                 name: social-api
+                port:
+                  number: 8080
+
+          # AI API
+          - path: /api/v1/ai
+            pathType: Prefix
+            backend:
+              service:
+                name: ai-api
                 port:
                   number: 8080
