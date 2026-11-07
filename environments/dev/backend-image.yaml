@@ -2,38 +2,28 @@
 # 실제 ECR Repository와 Digest는 CI 연동 후 채웁니다.
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
-  digest: ""
-  tag: "v2-586ae498b4c907831d1f4ecb803fd06296d7ca89"
-
+  digest: "sha256:c2b5b06fe891806de51895c1f85e6a16ae58eedae6c2c2af7fbde65b4a05dffb"
+  tag: "v2-bba310f088676e101fbaf9f078402aa90ca53edc"
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
-
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: dev
-
   - name: SPRING_DATASOURCE_URL
     value: jdbc:mysql://needu-dev-mysql.chmgo2a26a97.ap-northeast-2.rds.amazonaws.com:3306/needu
-
   - name: DB_USERNAME
     value: needu
-
   # V3 Valkey Cache
   - name: SPRING_DATA_REDIS_HOST
     value: master.needu-v3-dev-valkey-a.s4gucc.apn2.cache.amazonaws.com
-
   - name: SPRING_DATA_REDIS_PORT
     value: "6379"
-
   - name: SPRING_DATA_REDIS_SSL_ENABLED
     value: "true"
-
   # Redis Timeout
   - name: SPRING_DATA_REDIS_CONNECT_TIMEOUT
     value: "10s"
-
   - name: SPRING_DATA_REDIS_TIMEOUT
     value: "10s"
-
   - name: AI_SERVER_BASE_URL
     value: http://ai-fastapi.backend.svc.cluster.local:8000
