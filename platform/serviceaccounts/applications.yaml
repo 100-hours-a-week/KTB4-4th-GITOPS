@@ -37,3 +37,10 @@ kind: ServiceAccount
 metadata:
   name: ai-fastapi
   namespace: backend
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: adot-collector
+  namespace: monitoring
+automountServiceAccountToken: true
