@@ -16,3 +16,4 @@ resources:
   - applications/dev/social-api.yaml
   - applications/dev/ai-api.yaml
   - monitoring/adot/application.yaml
+  - monitoring/fluent-bit/application.yaml
