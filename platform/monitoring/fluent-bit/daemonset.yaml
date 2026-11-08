@@ -18,6 +18,8 @@ spec:
       containers:
         - name: fluent-bit
           image: public.ecr.aws/aws-observability/aws-for-fluent-bit:stable
+          command:
+            - /fluent-bit/bin/fluent-bit
           args:
             - -c
             - /fluent-bit/etc/fluent-bit.conf
