@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: monitoring
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush 5
+        Daemon Off
+        Log_Level info
+        Parsers_File parsers.conf
+
+    [INPUT]
+        Name tail
+        Path /var/log/containers/*.log
+        Tag kube.*
+        Parser cri
+        DB /var/lib/fluent-bit/tail.db
+        Mem_Buf_Limit 10MB
+        Skip_Long_Lines On
+        Refresh_Interval 10
+
+    [FILTER]
+        Name kubernetes
+        Match kube.*
+        Kube_Tag_Prefix kube.var.log.containers.
+        Merge_Log On
+        Keep_Log Off
+
+    [OUTPUT]
+        Name cloudwatch_logs
+        Match kube.*
+        region ap-northeast-2
+        log_group_name /needu/v3/dev/eks/application
+        log_stream_prefix fluent-bit-
+        auto_create_group false
+
+  parsers.conf: |
+    [PARSER]
+        Name cri
+        Format regex
+        Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
+        Time_Key time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L%z
