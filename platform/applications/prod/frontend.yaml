@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-frontend
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      path: charts/application
+      helm:
+        releaseName: frontend
+        valueFiles:
+          - $values/environments/prod/frontend.yaml
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: frontend
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: frontend
+      jsonPointers:
+        - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from
