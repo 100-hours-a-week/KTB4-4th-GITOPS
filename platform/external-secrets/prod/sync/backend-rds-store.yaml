@@ -1,0 +1,10 @@
+apiVersion: external-secrets.io/v1
+kind: SecretStore
+metadata:
+  name: needu-prod-rds
+  namespace: backend
+spec:
+  provider:
+    aws:
+      service: SecretsManager
+      region: ap-northeast-2
