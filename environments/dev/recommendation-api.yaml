@@ -1,3 +1,4 @@
+progressDeadlineSeconds: 300
 enabled: true
 nameOverride: recommendation-api
 namespace: backend
