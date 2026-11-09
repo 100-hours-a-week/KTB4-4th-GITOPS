@@ -10,8 +10,8 @@ serviceAccount:
   name: ai-fastapi
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/ai"
-  digest: "sha256:87d9279e307478ffdd13a91af93f77d0b35d8b14adfddda66aed1ab6f1545dbc"
-  tag: "v2-9cf7738a1179f1f95fdf53acc3271d6d47b3c312"
+  digest: "sha256:6d45bb8c3c609c8594b6e6043fba1a22ff58d48e0d4c0192463604c7f972720a"
+  tag: "v2-0ba010c1d1da46e490a7864d952a4f4823466bac"
 env:
   - name: APP_ENV
     value: development
