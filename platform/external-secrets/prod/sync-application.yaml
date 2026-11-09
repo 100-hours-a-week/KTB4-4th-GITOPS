@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-external-secrets-sync
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+    targetRevision: main
+    path: platform/external-secrets/prod/sync
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: frontend

@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - secret-store.yaml
+  - frontend-secret.yaml
+  - backend-secret.yaml
+  - social-secret.yaml
+  - ai-api-secret.yaml
+  - ai-secret.yaml
+  - backend-store.yaml
+  - backend-rds-store.yaml
+  - backend-db-secret.yaml

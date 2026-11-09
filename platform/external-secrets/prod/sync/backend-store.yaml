@@ -1,0 +1,10 @@
+apiVersion: external-secrets.io/v1
+kind: SecretStore
+metadata:
+  name: needu-prod-ssm
+  namespace: backend
+spec:
+  provider:
+    aws:
+      service: ParameterStore
+      region: ap-northeast-2
