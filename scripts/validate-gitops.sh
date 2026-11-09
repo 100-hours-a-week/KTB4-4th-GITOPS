@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -18,7 +19,7 @@ for environment_dir in environments/*; do
     application="${application%.yaml}"
 
     case "$application" in
-      backend-image|alb-controller) continue ;;
+      backend-image|alb-controller|argocd-values) continue ;;
     esac
 
     values=(-f "$values_file")
