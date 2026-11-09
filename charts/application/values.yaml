@@ -10,6 +10,7 @@ image:
   pullPolicy: IfNotPresent
 
 replicaCount: 1
+progressDeadlineSeconds: null
 deploymentAnnotations: {}
 
 serviceAccount:
@@ -23,6 +24,7 @@ service:
 
 containerPort: 8080
 resources: {}
+
 probes:
   startup:
     enabled: false
