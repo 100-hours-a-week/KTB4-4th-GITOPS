@@ -1,0 +1,40 @@
+progressDeadlineSeconds: 300
+enabled: true
+nameOverride: frontend
+namespace: frontend
+nodeSelector:
+  pool: application
+deploymentAnnotations:
+  secret.reloader.stakater.com/auto: "true"
+serviceAccount:
+  name: frontend
+image:
+  repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/frontend"
+  digest: "sha256:daf3e9e79dba384fa75bf924541e6c5dca28667cbef6716f368fc5824a2eb1aa"
+  tag: "v2-f860e8e832a43ebfc151f8a93f564f87ced0062d"
+env:
+  - name: NODE_ENV
+    value: production
+  - name: BACKEND_API_BASE_URL
+    value: https://v3.prod.needu.gift/api
+  - name: BACKEND_AUTH_API_BASE_URL
+    value: "http://auth-api.backend.svc.cluster.local:8080/"
+  - name: BACKEND_RECOMMENDATION_API_BASE_URL
+    value: "http://recommendation-api.backend.svc.cluster.local:8080/"
+  - name: BACKEND_SOCIAL_API_BASE_URL
+    value: "http://social-api.backend.svc.cluster.local:8080/"
+envFrom:
+  - secretRef:
+      name: frontend-runtime
+service:
+  enabled: true
+  port: 3000
+  targetPort: 3000
+containerPort: 3000
+probes:
+  liveness:
+    enabled: true
+    path: /api/health/live
+  readiness:
+    enabled: true
+    path: /api/health/ready
