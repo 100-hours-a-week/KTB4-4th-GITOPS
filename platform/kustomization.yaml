@@ -17,3 +17,5 @@ resources:
   - applications/dev/ai-api.yaml
   - monitoring/adot/application.yaml
   - monitoring/fluent-bit/application.yaml
+  - autoscaling/metrics-server/application.yaml
+  - autoscaling/cluster-autoscaler/application.yaml
