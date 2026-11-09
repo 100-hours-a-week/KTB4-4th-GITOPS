@@ -1,0 +1,28 @@
+progressDeadlineSeconds: 300
+enabled: true
+nameOverride: social-api
+namespace: backend
+nodeSelector:
+  pool: application
+serviceAccount:
+  name: social-api
+envFrom:
+  - secretRef:
+      name: backend-runtime
+  - secretRef:
+      name: backend-db
+  - secretRef:
+      name: social-runtime
+service:
+  enabled: true
+  port: 8080
+probes:
+  startup:
+    enabled: true
+    path: /livez
+  liveness:
+    enabled: true
+    path: /livez
+  readiness:
+    enabled: true
+    path: /readyz

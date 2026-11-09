@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-ai-fastapi
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      path: charts/application
+      helm:
+        releaseName: ai-fastapi
+        valueFiles:
+          - $values/environments/prod/ai-fastapi.yaml
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backend
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: ai-fastapi
+      jsonPointers:
+        - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from

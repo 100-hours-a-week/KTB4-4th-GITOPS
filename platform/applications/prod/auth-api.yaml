@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-auth-api
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      path: charts/application
+      helm:
+        releaseName: auth-api
+        valueFiles:
+          - $values/environments/prod/backend-image.yaml
+          - $values/environments/prod/auth-api.yaml
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backend
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: auth-api
+      jsonPointers:
+        - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from

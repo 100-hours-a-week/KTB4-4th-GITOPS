@@ -1,0 +1,13 @@
+# Stream 소비 기능이 구현된 뒤 활성화합니다.
+enabled: false
+nameOverride: ai-worker
+namespace: backend
+nodeSelector:
+  pool: application
+serviceAccount:
+  # Worker 활성화 시 동일한 이름의 ServiceAccount를 함께 생성합니다.
+  name: ai-worker
+service:
+  enabled: false
+autoscaling:
+  enabled: false
