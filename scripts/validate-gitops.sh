@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -10,6 +11,21 @@ trap 'rm -rf "$render_dir"' EXIT
 
 chart_dir="$render_dir/charts"
 mkdir -p "$chart_dir"
+
+# 0. Vendor Helm Chart 무결성 검증
+if [[ -d vendor/charts ]]; then
+  echo "Checking vendored Helm Charts"
+
+  if [[ ! -f vendor/charts/SHA256SUMS ]]; then
+    echo "Missing vendor/charts/SHA256SUMS" >&2
+    exit 1
+  fi
+
+  (
+    cd vendor/charts
+    shasum -a 256 --check SHA256SUMS
+  )
+fi
 
 # 1. Application Helm Chart 검증
 for environment_dir in environments/*; do
@@ -65,7 +81,23 @@ download_chart() {
   local chart="$2"
   local version="$3"
   local chart_file="$chart_dir/$chart-$version.tgz"
+  local vendor_file="$PWD/vendor/charts/$chart-$version.tgz"
 
+  # Vendor Chart 우선 사용
+  if [[ -f "$vendor_file" ]]; then
+    echo "Using vendored chart: $vendor_file" >&2
+
+    if ! helm show chart "$vendor_file" > /dev/null; then
+      echo "Invalid vendored chart: $vendor_file" >&2
+      return 1
+    fi
+
+    cp "$vendor_file" "$chart_file"
+    printf '%s\n' "$chart_file"
+    return 0
+  fi
+
+  # 다운로드된 Chart 캐시 확인
   if [[ -f "$chart_file" ]] && helm show chart "$chart_file" > /dev/null; then
     echo "Using cached chart: $chart_file" >&2
     printf '%s\n' "$chart_file"
@@ -74,9 +106,9 @@ download_chart() {
 
   rm -f "$chart_file"
 
-  echo "Downloading $chart:$version" >&2
+  echo "Downloading $chart:$version from $repo_url" >&2
 
-  # Helm 저장소를 통한 다운로드
+  # Helm Repository 다운로드
   for attempt in 1 2 3; do
     if helm pull "$chart" \
       --repo "$repo_url" \
@@ -87,57 +119,21 @@ download_chart() {
         printf '%s\n' "$chart_file"
         return 0
       fi
+
+      echo "Downloaded chart is invalid: $chart_file" >&2
     fi
 
     rm -f "$chart_file"
 
-    echo "Helm download failed ($attempt/3)" >&2
+    echo "Helm download failed ($attempt/3): $chart:$version" >&2
 
     if [[ "$attempt" -lt 3 ]]; then
       sleep $((attempt * 3))
     fi
   done
 
-  # Helm 다운로드 실패 시 공식 Chart URL로 재시도
-  local fallback_url=""
-
-  case "$chart:$version" in
-    cluster-autoscaler:9.60.0)
-      fallback_url="https://github.com/kubernetes/autoscaler/releases/download/cluster-autoscaler-chart-9.60.0/cluster-autoscaler-9.60.0.tgz"
-      ;;
-    metrics-server:3.14.0)
-      fallback_url="https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.14.0/metrics-server-3.14.0.tgz"
-      ;;
-  esac
-
-  if [[ -z "$fallback_url" ]]; then
-    echo "No fallback URL for $chart:$version" >&2
-    return 1
-  fi
-
-  echo "Trying direct download: $fallback_url" >&2
-
-  if ! curl -fL \
-    --retry 5 \
-    --retry-all-errors \
-    --retry-delay 3 \
-    --connect-timeout 15 \
-    --max-time 120 \
-    -o "$chart_file" \
-    "$fallback_url" >&2; then
-
-    rm -f "$chart_file"
-    echo "Failed to download $chart:$version" >&2
-    return 1
-  fi
-
-  if ! helm show chart "$chart_file" > /dev/null; then
-    rm -f "$chart_file"
-    echo "Invalid Helm chart: $chart_file" >&2
-    return 1
-  fi
-
-  printf '%s\n' "$chart_file"
+  echo "Failed to download $chart:$version from $repo_url" >&2
+  return 1
 }
 
 # 4. Autoscaling Helm Chart 검증
@@ -170,7 +166,7 @@ for application_file in platform/autoscaling/*/application.yaml; do
 
   echo "Validating $release_name ($version)"
 
-  # Chart 다운로드
+  # Chart 다운로드 또는 Vendor Chart 사용
   chart_file="$(download_chart "$repo_url" "$chart" "$version")"
 
   # Helm Lint
