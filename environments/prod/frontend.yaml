@@ -16,7 +16,7 @@ env:
   - name: NODE_ENV
     value: production
   - name: BACKEND_API_BASE_URL
-    value: https://v3.prod.needu.gift/api
+    value: https://needu.gift/api
   - name: BACKEND_AUTH_API_BASE_URL
     value: "http://auth-api.backend.svc.cluster.local:8080/"
   - name: BACKEND_RECOMMENDATION_API_BASE_URL
