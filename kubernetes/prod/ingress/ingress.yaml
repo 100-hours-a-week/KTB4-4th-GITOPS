@@ -12,13 +12,23 @@ metadata:
     alb.ingress.kubernetes.io/subnets: subnet-05ebd035963ad66d9,subnet-00ab31f7fb6619a36,subnet-0258a53c491aa8964
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:919551759796:certificate/11fde9c7-b865-46cb-a58f-b43f0dd82728
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:919551759796:certificate/11fde9c7-b865-46cb-a58f-b43f0dd82728,arn:aws:acm:ap-northeast-2:919551759796:certificate/d17a79eb-2a0f-46f9-b709-de88b1de3532
     alb.ingress.kubernetes.io/healthcheck-path: /login
     alb.ingress.kubernetes.io/success-codes: "200"
 spec:
   ingressClassName: alb
   rules:
     - host: v3.prod.needu.gift
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 3000
+    - host: needu.gift
       http:
         paths:
           - path: /

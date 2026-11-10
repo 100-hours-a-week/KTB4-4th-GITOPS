@@ -15,7 +15,7 @@ spec:
   ingressClassName: alb
   rules:
     - host: v3.prod.needu.gift
-      http:
+      http: &backendRoutes
         paths:
           # Auth API
           - path: /api/v1/auth
@@ -164,3 +164,5 @@ spec:
                 name: ai-api
                 port:
                   number: 8080
+    - host: needu.gift
+      http: *backendRoutes
