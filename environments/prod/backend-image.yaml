@@ -1,23 +1,19 @@
 # 네 Backend API와 향후 AI Worker가 공유할 Image입니다.
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
-  digest: "sha256:56a82856046ae9eeb81336ab80a1fc31679a11d714dd6fcdf4073bd8dd6560ce"
-  tag: "v2-cd94b885130114e59c3052b8351ed07ba237c8ab"
-
+  digest: "sha256:760b3ccbe7ee5cf2e7b2d623a866f425f6c79ace2c065f0301231db2fee17284"
+  tag: "v2-517296afc59b4b841df36da537de90080c613289"
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
-
 env:
   # Production Profile
   - name: SPRING_PROFILES_ACTIVE
     value: prod
-
   # Production MySQL
   - name: SPRING_DATASOURCE_URL
     value: jdbc:mysql://needu-prod-mysql.chmgo2a26a97.ap-northeast-2.rds.amazonaws.com:3306/needu
   - name: DB_USERNAME
     value: needu
-
   # Shared V2 Redis - Cache
   - name: SPRING_DATA_REDIS_HOST
     value: master.needu-prod-redis.s4gucc.apn2.cache.amazonaws.com
@@ -29,7 +25,6 @@ env:
     value: "10s"
   - name: SPRING_DATA_REDIS_TIMEOUT
     value: "10s"
-
   # V3 Valkey B - Streams
   - name: STREAM_REDIS_HOST
     value: master.needu-v3-prod-valkey.s4gucc.apn2.cache.amazonaws.com
@@ -41,9 +36,7 @@ env:
     value: "10s"
   - name: STREAM_REDIS_TIMEOUT
     value: "10s"
-
   # AI FastAPI
   - name: AI_SERVER_BASE_URL
     value: http://ai-fastapi.backend.svc.cluster.local:8000
-
 progressDeadlineSeconds: 300
