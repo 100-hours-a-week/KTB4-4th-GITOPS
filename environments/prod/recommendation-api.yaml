@@ -21,6 +21,14 @@ resources:
   limits:
     cpu: "1"
     memory: 1Gi
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
 probes:
   startup:
     enabled: true
