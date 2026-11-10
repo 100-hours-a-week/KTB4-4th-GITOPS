@@ -6,3 +6,4 @@ resources:
   - serviceaccounts.yaml
   - resources.yaml
   - reloader-application.yaml
+  - applications-application.yaml
