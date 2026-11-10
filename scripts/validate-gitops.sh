@@ -137,8 +137,7 @@ download_chart() {
 }
 
 # 4. Autoscaling Helm Chart 검증
-for application_file in platform/autoscaling/*/application.yaml; do
-  [[ -f "$application_file" ]] || continue
+while IFS= read -r -d '' application_file; do
 
   IFS=$'\t' read -r repo_url chart version release_name namespace < <(
     ruby -ryaml -e '
@@ -181,6 +180,6 @@ for application_file in platform/autoscaling/*/application.yaml; do
     > "$render_dir/$release_name.yaml"
 
   echo "Validated: $release_name"
-done
+done < <(find platform -path '*/autoscaling/*/application.yaml' -print0)
 
 echo "GitOps configuration validation passed"
