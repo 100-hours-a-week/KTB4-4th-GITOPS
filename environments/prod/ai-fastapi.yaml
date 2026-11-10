@@ -2,30 +2,40 @@ progressDeadlineSeconds: 300
 enabled: true
 nameOverride: ai-fastapi
 namespace: backend
+
 nodeSelector:
   pool: application
+
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
+
 serviceAccount:
   name: ai-fastapi
+
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/ai"
   digest: "sha256:3cad66867788bebaec55f02bf5ad6ea36e29f5bf9ce38ac49203c80a966aa456"
   tag: "v2-768d45534c92f88097c042f716505dd8f1f35fff"
+
 env:
   - name: APP_ENV
     value: production
-  # V3 Valkey Cache
+
+  # Shared V2 Redis - Cache
   - name: REDIS_URL
-    value: rediss://master.needu-v3-prod-valkey-a.s4gucc.apn2.cache.amazonaws.com:6379/0
+    value: rediss://master.needu-prod-redis.s4gucc.apn2.cache.amazonaws.com:6379/0
+
 envFrom:
   - secretRef:
       name: ai-runtime
+
 service:
   enabled: true
   port: 8000
   targetPort: 8000
+
 containerPort: 8000
+
 probes:
   startup:
     enabled: true

@@ -18,9 +18,9 @@ env:
   - name: DB_USERNAME
     value: needu
 
-  # V3 Valkey A - Cache
+  # Shared V2 Redis - Cache
   - name: SPRING_DATA_REDIS_HOST
-    value: master.needu-v3-prod-valkey-a.s4gucc.apn2.cache.amazonaws.com
+    value: master.needu-prod-redis.s4gucc.apn2.cache.amazonaws.com
   - name: SPRING_DATA_REDIS_PORT
     value: "6379"
   - name: SPRING_DATA_REDIS_SSL_ENABLED
@@ -45,3 +45,5 @@ env:
   # AI FastAPI
   - name: AI_SERVER_BASE_URL
     value: http://ai-fastapi.backend.svc.cluster.local:8000
+
+progressDeadlineSeconds: 300
