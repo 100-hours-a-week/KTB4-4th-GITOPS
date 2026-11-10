@@ -5,3 +5,4 @@ resources:
   - namespaces.yaml
   - serviceaccounts.yaml
   - resources.yaml
+  - reloader-application.yaml

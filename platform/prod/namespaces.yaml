@@ -24,3 +24,12 @@ metadata:
     argocd.argoproj.io/sync-wave: "-2"
   labels:
     app.kubernetes.io/part-of: needu
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: reloader
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+  labels:
+    app.kubernetes.io/part-of: needu
