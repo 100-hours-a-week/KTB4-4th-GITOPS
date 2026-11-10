@@ -7,3 +7,5 @@ resources:
   - resources.yaml
   - reloader-application.yaml
   - applications-application.yaml
+  - autoscaling/metrics-server/application.yaml
+  - autoscaling/cluster-autoscaler/application.yaml
