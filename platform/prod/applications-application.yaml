@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-applications
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+    targetRevision: main
+    path: platform/applications/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
