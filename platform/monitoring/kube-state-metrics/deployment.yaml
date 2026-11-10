@@ -36,10 +36,11 @@ spec:
             - --resources=deployments,pods,nodes,replicasets,statefulsets,daemonsets
           readinessProbe:
             httpGet:
-              path: /metrics
+              path: /healthz
               port: metrics
             initialDelaySeconds: 5
             periodSeconds: 10
+            timeoutSeconds: 3
           resources:
             requests:
               cpu: 50m
