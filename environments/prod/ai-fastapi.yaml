@@ -4,42 +4,32 @@ preStopSleepSeconds: 10
 enabled: true
 nameOverride: ai-fastapi
 namespace: backend
-
 nodeSelector:
   pool: application
-
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
-
 serviceAccount:
   name: ai-fastapi
-
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/ai"
-  digest: "sha256:3cad66867788bebaec55f02bf5ad6ea36e29f5bf9ce38ac49203c80a966aa456"
-  tag: "v2-768d45534c92f88097c042f716505dd8f1f35fff"
-
+  digest: "sha256:e47c8b191d58214010dfa6f5cd318960b475f771309ff356ea5411e1cc0525c6"
+  tag: "v2-a74d7524217a865a6703bd185891f6e01876ecbe"
 env:
   - name: APP_ENV
     value: production
   - name: UVICORN_TIMEOUT_GRACEFUL_SHUTDOWN
     value: "120"
-
   # Shared V2 Redis - Cache
   - name: REDIS_URL
     value: rediss://master.needu-prod-redis.s4gucc.apn2.cache.amazonaws.com:6379/0
-
 envFrom:
   - secretRef:
       name: ai-runtime
-
 service:
   enabled: true
   port: 8000
   targetPort: 8000
-
 containerPort: 8000
-
 resources:
   requests:
     cpu: 100m
@@ -47,7 +37,6 @@ resources:
   limits:
     cpu: "1"
     memory: 1Gi
-
 autoscaling:
   enabled: true
   minReplicas: 1
@@ -56,7 +45,6 @@ autoscaling:
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 300
-
 probes:
   startup:
     enabled: true
