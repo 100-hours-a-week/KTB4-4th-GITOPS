@@ -45,13 +45,16 @@ extraEnv:
     value: graceful
   - name: SPRING_LIFECYCLE_TIMEOUT_PER_SHUTDOWN_PHASE
     value: 120s
+  - name: AI_SERVICE_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: ai-api-runtime
+        key: AI_SERVICE_TOKEN
 envFrom:
   - secretRef:
       name: backend-runtime
   - secretRef:
       name: backend-db
-  - secretRef:
-      name: ai-api-runtime
 service:
   enabled: false
 resources:
