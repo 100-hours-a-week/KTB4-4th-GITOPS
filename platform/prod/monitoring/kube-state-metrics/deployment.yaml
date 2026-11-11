@@ -33,7 +33,7 @@ spec:
               containerPort: 8080
           args:
             - --port=8080
-            - --resources=deployments,pods,nodes,replicasets,statefulsets,daemonsets
+            - --resources=deployments,pods,nodes,replicasets,statefulsets,daemonsets,horizontalpodautoscalers
           readinessProbe:
             httpGet:
               path: /metrics
