@@ -15,6 +15,7 @@ resources:
   - applications/dev/recommendation-api.yaml
   - applications/dev/social-api.yaml
   - applications/dev/ai-api.yaml
+  - applications/dev/ai-worker.yaml
   - monitoring/adot/application.yaml
   - monitoring/fluent-bit/application.yaml
   - monitoring/kube-state-metrics/application.yaml

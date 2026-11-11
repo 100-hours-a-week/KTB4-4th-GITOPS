@@ -1,13 +1,75 @@
-# Stream 소비 기능이 구현된 뒤 활성화합니다.
-enabled: false
+progressDeadlineSeconds: 300
+terminationGracePeriodSeconds: 130
+preStopSleepSeconds: 10
+enabled: true
 nameOverride: ai-worker
 namespace: backend
+replicaCount: 1
 nodeSelector:
   pool: application
 serviceAccount:
-  # Worker 활성화 시 동일한 이름의 ServiceAccount를 함께 생성합니다.
   name: ai-worker
+deploymentAnnotations:
+  secret.reloader.stakater.com/auto: "true"
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: dev,ai-worker
+  - name: SPRING_DATASOURCE_URL
+    value: jdbc:mysql://needu-dev-mysql.chmgo2a26a97.ap-northeast-2.rds.amazonaws.com:3306/needu
+  - name: DB_USERNAME
+    value: needu
+  - name: SPRING_DATA_REDIS_HOST
+    value: master.needu-v3-dev-valkey-a.s4gucc.apn2.cache.amazonaws.com
+  - name: SPRING_DATA_REDIS_PORT
+    value: "6379"
+  - name: SPRING_DATA_REDIS_SSL_ENABLED
+    value: "true"
+  - name: SPRING_DATA_REDIS_CONNECT_TIMEOUT
+    value: "10s"
+  - name: SPRING_DATA_REDIS_TIMEOUT
+    value: "10s"
+  - name: STREAM_REDIS_HOST
+    value: master.needu-v3-dev-valkey.s4gucc.apn2.cache.amazonaws.com
+  - name: STREAM_REDIS_PORT
+    value: "6379"
+  - name: STREAM_REDIS_SSL_ENABLED
+    value: "true"
+  - name: STREAM_REDIS_CONNECT_TIMEOUT
+    value: "10s"
+  - name: STREAM_REDIS_TIMEOUT
+    value: "10s"
+  - name: AI_SERVER_BASE_URL
+    value: http://ai-fastapi.backend.svc.cluster.local:8000
+extraEnv:
+  - name: SERVER_SHUTDOWN
+    value: graceful
+  - name: SPRING_LIFECYCLE_TIMEOUT_PER_SHUTDOWN_PHASE
+    value: 120s
+envFrom:
+  - secretRef:
+      name: backend-runtime
+  - secretRef:
+      name: backend-db
+  - secretRef:
+      name: ai-api-runtime
 service:
   enabled: false
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi
 autoscaling:
   enabled: false
+probes:
+  startup:
+    enabled: true
+    path: /livez
+  liveness:
+    enabled: true
+    path: /livez
+  readiness:
+    enabled: true
+    path: /readyz
