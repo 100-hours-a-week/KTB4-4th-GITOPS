@@ -28,6 +28,9 @@ spec:
       labels:
         {{- include "needu.labels" . | nindent 8 }}
     spec:
+      {{- with .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ . }}
+      {{- end }}
       {{- if .Values.serviceAccount.name }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       {{- else if .Values.serviceAccount.create }}
@@ -49,12 +52,23 @@ spec:
         - name: {{ include "needu.name" . }}
           image: {{ include "needu.image" . | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.preStopSleepSeconds }}
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: {{ . }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
-          {{- with .Values.env }}
+          {{- if or .Values.env .Values.extraEnv }}
           env:
+            {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- end }}
           {{- with .Values.envFrom }}
           envFrom:
