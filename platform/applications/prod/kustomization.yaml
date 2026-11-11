@@ -7,3 +7,4 @@ resources:
   - recommendation-api.yaml
   - social-api.yaml
   - ai-api.yaml
+  - ai-worker.yaml
