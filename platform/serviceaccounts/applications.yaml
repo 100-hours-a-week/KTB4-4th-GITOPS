@@ -35,6 +35,13 @@ automountServiceAccountToken: false
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  name: ai-worker
+  namespace: backend
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
   name: ai-fastapi
   namespace: backend
 ---
