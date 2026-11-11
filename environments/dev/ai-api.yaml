@@ -13,6 +13,20 @@ extraEnv:
     value: graceful
   - name: SPRING_LIFECYCLE_TIMEOUT_PER_SHUTDOWN_PHASE
     value: 120s
+  - name: STREAM_REDIS_HOST
+    value: master.needu-v3-dev-valkey.s4gucc.apn2.cache.amazonaws.com
+  - name: STREAM_REDIS_PORT
+    value: "6379"
+  - name: STREAM_REDIS_SSL_ENABLED
+    value: "true"
+  - name: STREAM_REDIS_CONNECT_TIMEOUT
+    value: "10s"
+  - name: STREAM_REDIS_TIMEOUT
+    value: "10s"
+  - name: AI_CHAT_REPLY_QUEUE_ENABLED
+    value: "true"
+  - name: AI_CHAT_REPLY_WORKER_ENABLED
+    value: "false"
 envFrom:
   - secretRef:
       name: backend-runtime
