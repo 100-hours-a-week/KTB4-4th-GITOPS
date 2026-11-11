@@ -11,6 +11,8 @@ image:
 
 replicaCount: 1
 progressDeadlineSeconds: null
+terminationGracePeriodSeconds: null
+preStopSleepSeconds: null
 deploymentAnnotations: {}
 
 serviceAccount:
@@ -53,6 +55,7 @@ autoscaling:
   behavior: {}
 
 env: []
+extraEnv: []
 envFrom: []
 nodeSelector: {}
 tolerations: []
