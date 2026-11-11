@@ -1,4 +1,6 @@
 progressDeadlineSeconds: 300
+terminationGracePeriodSeconds: 130
+preStopSleepSeconds: 10
 enabled: true
 nameOverride: ai-api
 namespace: backend
@@ -6,6 +8,11 @@ nodeSelector:
   pool: application
 serviceAccount:
   name: ai-api
+extraEnv:
+  - name: SERVER_SHUTDOWN
+    value: graceful
+  - name: SPRING_LIFECYCLE_TIMEOUT_PER_SHUTDOWN_PHASE
+    value: 120s
 envFrom:
   - secretRef:
       name: backend-runtime

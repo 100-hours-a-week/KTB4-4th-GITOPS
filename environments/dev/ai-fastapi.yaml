@@ -1,4 +1,6 @@
 progressDeadlineSeconds: 300
+terminationGracePeriodSeconds: 130
+preStopSleepSeconds: 10
 enabled: true
 nameOverride: ai-fastapi
 namespace: backend
@@ -15,6 +17,8 @@ image:
 env:
   - name: APP_ENV
     value: development
+  - name: UVICORN_TIMEOUT_GRACEFUL_SHUTDOWN
+    value: "120"
   # V3 Valkey Cache
   - name: REDIS_URL
     value: rediss://master.needu-v3-dev-valkey-a.s4gucc.apn2.cache.amazonaws.com:6379/0

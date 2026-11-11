@@ -1,4 +1,6 @@
 progressDeadlineSeconds: 300
+terminationGracePeriodSeconds: 130
+preStopSleepSeconds: 10
 enabled: true
 nameOverride: ai-fastapi
 namespace: backend
@@ -20,6 +22,8 @@ image:
 env:
   - name: APP_ENV
     value: production
+  - name: UVICORN_TIMEOUT_GRACEFUL_SHUTDOWN
+    value: "120"
 
   # Shared V2 Redis - Cache
   - name: REDIS_URL
