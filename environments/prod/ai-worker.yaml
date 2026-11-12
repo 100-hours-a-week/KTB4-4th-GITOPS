@@ -8,6 +8,7 @@ replicaCount: 1
 nodeSelector:
   pool: application
 serviceAccount:
+  create: true
   name: ai-worker
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
