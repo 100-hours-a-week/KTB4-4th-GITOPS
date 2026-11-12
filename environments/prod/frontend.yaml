@@ -10,8 +10,8 @@ serviceAccount:
   name: frontend
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/frontend"
-  digest: "sha256:9a3df32b46dad787c28cb3ec300185e49a50563fd09e431ef1aedf8db235f6eb"
-  tag: "v2-ce2aca4cfa74a151b4076c745c9f455f97dbad27"
+  digest: "sha256:e9eb99a773bf4272cb381e3fa56590006eaf8097dfd7a841ba4345d7d4435d31"
+  tag: "v2-9242f6c7eb0a9b94c3fa6db0d4754b507a6d10b4"
 env:
   - name: NODE_ENV
     value: production
