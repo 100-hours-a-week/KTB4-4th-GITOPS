@@ -13,6 +13,10 @@ extraEnv:
     value: graceful
   - name: SPRING_LIFECYCLE_TIMEOUT_PER_SHUTDOWN_PHASE
     value: 120s
+  - name: AI_CHAT_REPLY_QUEUE_ENABLED
+    value: "true"
+  - name: AI_CHAT_REPLY_WORKER_ENABLED
+    value: "false"
 envFrom:
   - secretRef:
       name: backend-runtime

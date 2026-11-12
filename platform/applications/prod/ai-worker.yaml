@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-ai-worker
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      path: charts/application
+      helm:
+        releaseName: ai-worker
+        valueFiles:
+          - $values/environments/prod/backend-image.yaml
+          - $values/environments/prod/ai-worker.yaml
+    - repoURL: https://github.com/100-hours-a-week/KTB4-4th-GITOPS.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backend
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: ai-worker
+      jsonPointers:
+        - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - RespectIgnoreDifferences=true
