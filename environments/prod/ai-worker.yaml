@@ -12,6 +12,8 @@ serviceAccount:
   name: ai-worker
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
+podAnnotations:
+  needu.gift/worker-bootstrap-revision: "serviceaccount-2026-11-12"
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: prod,ai-worker
