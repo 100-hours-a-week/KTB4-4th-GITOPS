@@ -1,8 +1,8 @@
 # 네 Backend API와 향후 AI Worker가 공유할 Image입니다.
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
-  digest: "sha256:760b3ccbe7ee5cf2e7b2d623a866f425f6c79ace2c065f0301231db2fee17284"
-  tag: "v2-517296afc59b4b841df36da537de90080c613289"
+  digest: "sha256:3d91718c0630d96c33740bd8b71f213c5312cc4767b8c59a3bb56205c78d3850"
+  tag: "v2-530b0bd030f41ab2ae408c9312ebe41215bca986"
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
 env:
