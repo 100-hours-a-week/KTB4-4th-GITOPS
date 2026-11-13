@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: needu-prod-keda
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://kedacore.github.io/charts
+    chart: keda
+    targetRevision: 2.21.0
+    helm:
+      releaseName: keda
+      values: |
+        operator:
+          nodeSelector:
+            pool: system
+          tolerations:
+            - key: dedicated
+              operator: Equal
+              value: system
+              effect: NoSchedule
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
+
+        metricsServer:
+          nodeSelector:
+            pool: system
+          tolerations:
+            - key: dedicated
+              operator: Equal
+              value: system
+              effect: NoSchedule
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
+
+        webhooks:
+          nodeSelector:
+            pool: system
+          tolerations:
+            - key: dedicated
+              operator: Equal
+              value: system
+              effect: NoSchedule
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: keda
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
