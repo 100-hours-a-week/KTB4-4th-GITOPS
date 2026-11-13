@@ -8,6 +8,10 @@ nodeSelector:
   pool: application
 serviceAccount:
   name: ai-api
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /actuator/prometheus
+  prometheus.io/port: "8080"
 extraEnv:
   - name: SERVER_SHUTDOWN
     value: graceful
