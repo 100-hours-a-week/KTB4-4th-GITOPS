@@ -14,6 +14,9 @@ deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
 podAnnotations:
   needu.gift/worker-bootstrap-revision: "serviceaccount-2026-11-12"
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /actuator/prometheus
+  prometheus.io/port: "8080"
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: prod,ai-worker
