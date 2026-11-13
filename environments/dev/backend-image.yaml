@@ -2,8 +2,8 @@
 # 실제 ECR Repository와 Digest는 CI 연동 후 채웁니다.
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/backend"
-  digest: "sha256:dbb1301ef2a7c458d6e6ab5b11e5fdc19468eebe61f1583f964c2458fba3cb87"
-  tag: "v2-c76cee0986cf975d4f0d192fb5e6ec2a6f0d015d"
+  digest: "sha256:1c4b2c4835a0acc30abab1e6579c2d1f56a088b1ab6af6350f5352c866d6808f"
+  tag: "v2-34b5baaac5abe289abaf2c68182882aa3a29d738"
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
 env:
