@@ -1,17 +1,22 @@
 progressDeadlineSeconds: 300
 terminationGracePeriodSeconds: 130
 preStopSleepSeconds: 10
+
 enabled: true
 nameOverride: ai-api
 namespace: backend
+
 nodeSelector:
   pool: application
+
 serviceAccount:
   name: ai-api
+
 podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/path: /actuator/prometheus
   prometheus.io/port: "8080"
+
 extraEnv:
   - name: SERVER_SHUTDOWN
     value: graceful
@@ -21,6 +26,11 @@ extraEnv:
     value: "true"
   - name: AI_CHAT_REPLY_WORKER_ENABLED
     value: "false"
+  - name: LOAD_TEST_ACCOUNT_USER_ID_FROM
+    value: "1139"
+  - name: LOAD_TEST_ACCOUNT_USER_ID_TO
+    value: "1638"
+
 envFrom:
   - secretRef:
       name: backend-runtime
@@ -28,9 +38,11 @@ envFrom:
       name: backend-db
   - secretRef:
       name: ai-api-runtime
+
 service:
   enabled: true
   port: 8080
+
 resources:
   requests:
     cpu: 250m
@@ -38,6 +50,7 @@ resources:
   limits:
     cpu: "1"
     memory: 1Gi
+
 autoscaling:
   enabled: true
   minReplicas: 2
@@ -46,6 +59,7 @@ autoscaling:
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 300
+
 probes:
   startup:
     enabled: true
