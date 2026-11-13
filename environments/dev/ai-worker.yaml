@@ -11,6 +11,10 @@ serviceAccount:
   name: ai-worker
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /actuator/prometheus
+  prometheus.io/port: "8080"
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: dev,ai-worker
