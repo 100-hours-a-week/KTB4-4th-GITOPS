@@ -1,39 +1,60 @@
 progressDeadlineSeconds: 300
 terminationGracePeriodSeconds: 130
 preStopSleepSeconds: 10
+
 enabled: true
 nameOverride: ai-fastapi
 namespace: backend
+
 nodeSelector:
   pool: application
+
 deploymentAnnotations:
   secret.reloader.stakater.com/auto: "true"
+
 serviceAccount:
   name: ai-fastapi
+
 podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/path: /metrics
   prometheus.io/port: "8000"
+
 image:
   repository: "919551759796.dkr.ecr.ap-northeast-2.amazonaws.com/need-u/ai"
   digest: "sha256:2e5474e63d4192e6ae27768fb5a819a96c334d3f73ff8d875778606e2cdfbab9"
   tag: "v2-b649d594be354a40c509ade5e83d37c63cd7a7b4"
+
 env:
   - name: APP_ENV
     value: production
+
   - name: UVICORN_TIMEOUT_GRACEFUL_SHUTDOWN
     value: "120"
+
+  # K1 AI Load Test
+  - name: FAULT_INJECTION_ENABLED
+    value: "true"
+  - name: CHAT_SESSION_IDLE_TTL_SECONDS
+    value: "864000"
+  - name: CHAT_SESSION_MAX_LIFETIME_SECONDS
+    value: "864000"
+
   # Shared V2 Redis - Cache
   - name: REDIS_URL
     value: rediss://master.needu-prod-redis.s4gucc.apn2.cache.amazonaws.com:6379/0
+
 envFrom:
   - secretRef:
       name: ai-runtime
+
 service:
   enabled: true
   port: 8000
   targetPort: 8000
+
 containerPort: 8000
+
 resources:
   requests:
     cpu: 100m
@@ -41,6 +62,7 @@ resources:
   limits:
     cpu: "1"
     memory: 1Gi
+
 autoscaling:
   enabled: true
   minReplicas: 1
@@ -49,6 +71,7 @@ autoscaling:
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 300
+
 probes:
   startup:
     enabled: true
