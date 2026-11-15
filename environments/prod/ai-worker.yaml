@@ -106,7 +106,7 @@ keda:
       metadata:
         hostFromEnv: STREAM_REDIS_HOST
         portFromEnv: STREAM_REDIS_PORT
-        stream: aichat:reply-jobs
+        stream: backend:aichat:reply-jobs
         consumerGroup: aichat-reply-workers
         lagCount: "5"
         activationLagCount: "1"
