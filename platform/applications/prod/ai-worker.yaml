@@ -25,6 +25,7 @@ spec:
       kind: Deployment
       name: ai-worker
       jsonPointers:
+        - /spec/replicas
         - /spec/template/metadata/annotations/reloader.stakater.com~1last-reloaded-from
   syncPolicy:
     automated:
