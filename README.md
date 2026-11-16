@@ -141,26 +141,27 @@ Production 배포는 승인된 Git 변경으로만 진행합니다. CI는 Produc
 
 ```text
 charts/application/       공통 Workload Helm Chart
-environments/dev/         Dev Workload Values
-platform/namespaces/      Namespace 정의
-platform/serviceaccounts/ ServiceAccount 권한 설계
+environments/prod/        Production Workload Values
+argocd/prod/              Production Argo CD 부트스트랩
+platform/prod/            Production 플랫폼 리소스
 ```
 
-Dev Workload는 `enabled: true`로 렌더링되지만 Argo CD Application의 자동 동기화는 꺼져 있습니다. 이미지·Secret·자원 요청량을 확인한 뒤 AI FastAPI → Backend API → Frontend 순서로 수동 Sync합니다. ALB·Ingress·HTTPS 설정은 별도 담당 작업에서 연결합니다. Dev Namespace의 자원 정책은 `platform/namespaces/dev/`에 둡니다.
+V3 Dev 환경 종료에 따라 Dev 전용 Argo CD, Values, Kubernetes 리소스는 관리하지 않습니다. Production 변경은 `argocd/prod`, `environments/prod`, `platform/prod`에서 관리합니다.
 
 ## 로컬 검증
 
 ```bash
 helm lint charts/application
-helm template frontend charts/application -f environments/dev/frontend.yaml > /dev/null
-helm template auth-api charts/application -f environments/dev/backend-image.yaml -f environments/dev/auth-api.yaml > /dev/null
+helm template frontend charts/application -f environments/prod/frontend.yaml > /dev/null
+helm template auth-api charts/application -f environments/prod/backend-image.yaml -f environments/prod/auth-api.yaml > /dev/null
+kubectl kustomize platform/prod > /dev/null
 ```
 
-Backend API는 공통 Image를 사용하므로 `backend-image.yaml`을 먼저, 서비스별 Values를 뒤에 전달합니다. 공통 Chart를 변경하면 Dev와 Production Values를 모두 렌더링해 영향을 확인합니다. Secret 원문은 Git·Helm Values에 넣지 않습니다.
+Backend API는 공통 Image를 사용하므로 `backend-image.yaml`을 먼저, 서비스별 Values를 뒤에 전달합니다. 공통 Chart를 변경하면 Production Values를 모두 렌더링해 영향을 확인합니다. Secret 원문은 Git·Helm Values에 넣지 않습니다.
 
 ## 협업 규칙
 
-- 브랜치: `<종류>/<환경>-<작업>-<이슈번호>` (예: `chore/dev-gitops-bootstrap-1`)
+- 브랜치: `<종류>/<환경>-<작업>-<이슈번호>` (예: `chore/prod-gitops-cleanup-1`)
 - 종류: `feat`, `fix`, `chore`, `docs`; 환경: `dev`, `prod`, `common`
 - `main`에는 PR로만 병합합니다. Production Values와 공통 Chart 변경은 플랫폼 팀 리뷰를 받습니다.
 - 이슈와 PR은 `.github/` 템플릿을 사용합니다. PR에는 변경 환경, Argo CD Sync 영향, 검증 결과를 기록합니다.
