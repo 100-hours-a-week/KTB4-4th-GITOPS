@@ -1,5 +1,5 @@
 progressDeadlineSeconds: 300
-enabled: true
+enabled: false
 nameOverride: auth-api
 namespace: backend
 nodeSelector:

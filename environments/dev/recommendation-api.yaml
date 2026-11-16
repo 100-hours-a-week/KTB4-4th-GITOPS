@@ -1,5 +1,5 @@
 progressDeadlineSeconds: 300
-enabled: true
+enabled: false
 nameOverride: recommendation-api
 namespace: backend
 nodeSelector:

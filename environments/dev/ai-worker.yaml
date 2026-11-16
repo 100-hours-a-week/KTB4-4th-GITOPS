@@ -1,7 +1,7 @@
 progressDeadlineSeconds: 300
 terminationGracePeriodSeconds: 130
 preStopSleepSeconds: 10
-enabled: true
+enabled: false
 nameOverride: ai-worker
 namespace: backend
 replicaCount: 1
